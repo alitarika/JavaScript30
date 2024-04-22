@@ -59,9 +59,69 @@
         background: black;
         position: absolute;
         top: 50%;
+        transform: rotate(90deg);
+        transform-origin: 100%;
+        /* transition: 0.5s;
+        transition-timing-function: cubic-bezier(0.42, 0, 0.4, 2.21); */
+      }
+
+      .second-hand {
+        transition-timing-function: cubic-bezier(0.42, 0, 0.4, 2.21);
       }
     </style>
+    <script>
+      const secondHand = document.querySelector(".second-hand");
+      const minHand = document.querySelector(".min-hand");
+      const hourHand = document.querySelector(".hour-hand");
 
-    <script></script>
+      const setDate = () => {
+        const time = new Date();
+        const second = time.getSeconds();
+        const minute = time.getMinutes();
+        const hour = time.getHours();
+        const secondDegree = second * 6 + 90;
+        const minuteDegree = minute * 6 + 90;
+        const hourDegree = hour * 30 + 90;
+
+        // if (secondDegree == 90) secondHand.style.transition = "0s";
+        // if (minuteDegree == 90) minHand.style.transition = "0s";
+        // if (hourDegree == 90) hourHand.style.transition = "0s";
+        // if (secondDegree !== 90) secondHand.style.transition = "0.5s";
+        // if (secondDegree !== 90)
+        //   secondHand.style.transitionTimingFunction =
+        //     "cubic-bezier(0.42, 0, 0.4, 2.21)";
+        // if (minuteDegree !== 90)
+        //   minHand.style.transitionTimingFunction =
+        //     "cubic-bezier(0.42, 0, 0.4, 2.21)";
+        // if (hourDegree !== 90)
+        //   hourHand.style.transitionTimingFunction =
+        //     "cubic-bezier(0.42, 0, 0.4, 2.21)";
+        // if (minuteDegree !== 90) minHand.style.transition = "0.5s";
+        // if (hourDegree !== 90) hourHand.style.transition = "0.5s";
+
+        const setTransition = (
+          element,
+          duration = "0.5s",
+          timingFunction = "cubic-bezier(0.42, 0, 0.4, 2.21)"
+        ) => {
+          element.style.transition = duration;
+          element.style.transitionTimingFunction = timingFunction;
+        };
+
+        if (secondDegree === 90) setTransition(secondHand, "0s");
+        else setTransition(secondHand);
+
+        if (minuteDegree === 90) setTransition(minHand, "0s");
+        else setTransition(minHand);
+
+        if (hourDegree === 90) setTransition(hourHand, "0s");
+        else setTransition(hourHand);
+        secondHand.style.transform = `rotate(${secondDegree}deg)`;
+        minHand.style.transform = `rotate(${minuteDegree}deg)`;
+        hourHand.style.transform = `rotate(${hourDegree}deg)`;
+      };
+
+      setInterval(setDate, 1000);
+    </script>
   </body>
 </html>
