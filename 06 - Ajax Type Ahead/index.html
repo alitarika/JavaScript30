@@ -1,23 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Type Ahead 👀</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
 
-  <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
-    <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
-    </ul>
-  </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+      const cities = [];
 
-</script>
-</body>
+      fetch(endpoint)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Response was not 'ok'.");
+          }
+          return response.json();
+        })
+        .then((data) => cities.push(...data))
+        .catch((error) => console.error("Could not fetch the data", error));
+
+      function searchByQuery(query, cities) {
+        console.log(cities);
+        return cities.filter((city) => {
+          return (
+            city.city.toLowerCase().includes(query.toLowerCase()) ||
+            city.state.toLowerCase().includes(query.toLowerCase())
+          );
+        });
+      }
+
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      function handleInputQuery(e) {
+        const citiesToDisplay = searchByQuery(e.target.value, cities);
+        console.log(citiesToDisplay);
+        const liList = citiesToDisplay.map((city) => {
+          const regex = new RegExp(e.target.value, "gi");
+          const cityName = city.city.replace(
+            regex,
+            `<span class="hl">${e.target.value}</span>`
+          );
+          const stateName = city.state.replace(
+            regex,
+            `<span class="hl">${e.target.value}</span>`
+          );
+          return `<li><span class="name"> ${cityName} ${stateName}</span><span class="population">${numberWithCommas(
+            city.population
+          )}</span> </li>`;
+        });
+        suggestions.innerHTML = liList;
+      }
+
+      const searchInp = document.querySelector("input.search");
+      const suggestions = document.querySelector("ul.suggestions");
+
+      searchInp.addEventListener("change", handleInputQuery);
+      searchInp.addEventListener("keyup", handleInputQuery);
+    </script>
+  </body>
 </html>
