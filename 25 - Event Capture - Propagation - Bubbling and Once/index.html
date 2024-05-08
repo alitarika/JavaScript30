@@ -1,49 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Understanding JavaScript's Capture</title>
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body class="bod">
-
-  <div class="one">
-    <div class="two">
-      <div class="three">
+<html class="sa" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Understanding JavaScript's Capture</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body class="bod">
+    <div class="one">
+      <div class="two">
+        <div class="three">
+          <span id="four" class="four">
+            <span id="five" class="five"></span>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
 
-<style>
-  html {
-    box-sizing: border-box;
-  }
+    <style>
+      html {
+        box-sizing: border-box;
+      }
 
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
+      body {
+        min-height: 100vh;
+      }
 
-  div {
-    width: 100%;
-    padding: 100px;
-  }
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
 
-  .one {
-    background: thistle;
-  }
+      div,
+      span {
+        width: 100%;
+        padding: 100px;
+      }
 
-  .two {
-    background: mistyrose;
-  }
+      .one {
+        background: thistle;
+      }
 
-  .three {
-    background: coral;
-  }
-</style>
+      .two {
+        background: mistyrose;
+      }
 
-<button></button>
-<script>
+      .three {
+        background: coral;
+      }
+      #four {
+        background: teal;
+      }
+      #five {
+        background: brown;
+      }
+    </style>
 
-</script>
-</body>
+    <button></button>
+    <script>
+      // const divEls = document.querySelectorAll("div");
+      // const spanEl = document.querySelector("span");
+
+      // spanEl.addEventListener("click", () => console.log(spanEl.id), {
+      //   capture: false,
+      // });
+
+      // const fiveSpan = document.getElementById("five");
+
+      // fiveSpan.addEventListener("click", () => console.log(fiveSpan.id), {
+      //   capture: false,
+      // });
+
+      // document.body.addEventListener(
+      //   "click",
+      //   () => console.log(document.body.classList.value),
+      //   { capture: true }
+      // );
+
+      // divEls.forEach((div) =>
+      //   div.addEventListener("click", (e) => {
+      //     console.log(div.classList.value);
+      //     e.stopPropagation();
+      //   })
+      // );
+
+      const allElements = document.querySelectorAll("*");
+
+      allElements.forEach((el) =>
+        el.addEventListener(
+          "click",
+          (e) => {
+            console.log(el.classList.value);
+            // e.stopPropagation();
+          },
+          { capture: false, once: true }
+        )
+      );
+    </script>
+  </body>
 </html>
