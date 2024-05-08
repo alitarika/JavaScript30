@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>👀👀👀Follow Along Nav</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <title>Follow Along Nav</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
     <nav>
       <ul class="menu">
         <li><a href="">Home</a></li>
@@ -19,16 +18,62 @@
     </nav>
 
     <div class="wrapper">
-      <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
-      <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
-      <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
-      <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
-      <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
+      <p>
+        Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit.
+        Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati
+        distinctio, aut itaque, qui vitae!
+      </p>
+      <p>
+        Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque
+        praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate
+        consequuntur facilis ullam dignissimos, aperiam quam veniam.
+      </p>
+      <p>
+        Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime
+        <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit
+        recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.
+      </p>
+      <p>
+        Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni
+        odit <a href="">totam</a> ut consequatur eveniet sunt quam provident
+        sapiente dicta neque quod.
+      </p>
+      <p>
+        Aliquam <a href="">dicta</a> sequi culpa fugiat
+        <a href="">consequuntur</a> pariatur optio ad minima, maxime
+        <a href="">odio</a>, distinctio magni impedit tempore enim repellendus
+        <a href="">repudiandae</a> quas!
+      </p>
     </div>
 
-  <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
-  </script>
-</body>
-</html>
+    <script>
+      // get all the anchor link and create the highlighter element for anchor links
+      const anchorLinks = document.querySelectorAll("a");
+      const highlightEl = document.createElement("span");
+      // apply highlight class we init beforehand to el and append it to doc body
+      highlightEl.classList.add("highlight");
+      document.body.appendChild(highlightEl);
 
+      function handleAnchorLinkHighlight() {
+        let paddingVal = 8;
+        // get bounding coordinates of the anchor element and add scroll values to it
+        // so that the coords are acc to document and not screen
+        let { top, left, height, width } = this.getBoundingClientRect();
+        left += window.scrollX;
+        top += window.scrollY;
+
+        // apply coords to highlight element with the padding value
+        highlightEl.style.width = `${width + paddingVal}px`;
+        highlightEl.style.height = `${height + paddingVal}px`;
+        highlightEl.style.transform = `translate(${left - paddingVal / 2}px, ${
+          top - paddingVal / 2
+        }px)`;
+      }
+
+      anchorLinks.forEach((a) => {
+        a.addEventListener("mouseenter", handleAnchorLinkHighlight);
+        a.addEventListener("focus", handleAnchorLinkHighlight);
+      });
+    </script>
+  </body>
+</html>
