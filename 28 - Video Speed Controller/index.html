@@ -12,7 +12,7 @@
         class="flex"
         width="765"
         height="430"
-        src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
+        autoplay
         loop
         controls
       ></video>
@@ -21,6 +21,24 @@
       </div>
     </div>
 
-    <script></script>
+    <script>
+      // speed - the whole speed controller div
+      // speedBar - percentage showing bar
+      const speed = document.querySelector(".speed");
+      const speedBar = document.querySelector(".speed-bar");
+      const video = document.querySelector(".flex");
+
+      speed.addEventListener("mousemove", function (e) {
+        const y = e.pageY - this.offsetTop;
+        const percent = y / this.offsetHeight;
+        const barHeight = Math.round(percent * 100) + "%";
+        speedBar.style.height = barHeight;
+        const min = 0.25;
+        const max = 3;
+        let playbackRate = percent * (max - min) + min;
+        speedBar.textContent = playbackRate.toFixed(2) + "x";
+        video.playbackRate = playbackRate;
+      });
+    </script>
   </body>
 </html>
